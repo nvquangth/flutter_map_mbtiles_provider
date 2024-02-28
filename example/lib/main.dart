@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_mbtiles_provider/flutter_map_mbtiles_provider.dart';
+import 'package:latlong2/latlong.dart';
 
 void main() {
   runApp(FlutterMapApp());
@@ -32,29 +33,26 @@ class OfflineMBTilesMapPage extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text(
-                  'This is an offline map of Berlin, Germany using a single MBTiles file. The file was built from the Stamen toner map data (http://maps.stamen.com).\n\n'
+              child: Text('This is an offline map of Berlin, Germany using a single MBTiles file. The file was built from the Stamen toner map data (http://maps.stamen.com).\n\n'
                   '(Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.)'),
             ),
             Flexible(
               child: FlutterMap(
                 options: MapOptions(
-                  center: LatLng(
-                    52.516144,
-                    13.404938,
-                  ),
-                  minZoom: 12.0,
-                  maxZoom: 14.0,
+                  center: LatLng(6.849574, -0.715688),
+                  minZoom: 10.0,
+                  maxZoom: 18.0,
                   zoom: 12.0,
-                  swPanBoundary: LatLng(52.492205, 13.282081),
-                  nePanBoundary: LatLng(52.540084, 13.527795),
+                  // swPanBoundary: LatLng(52.492205, 13.282081),
+                  // nePanBoundary: LatLng(52.540084, 13.527795),
                 ),
-                layers: [
-                  TileLayerOptions(
-                      tileProvider: MBTilesImageProvider.fromAsset('assets/berlin.mbtiles'),
-                      maxZoom: 14.0,
-                      backgroundColor: Colors.white,
-                      tms: true),
+                children: [
+                  TileLayer(
+                    tileProvider: MBTilesImageProvider.fromAsset('assets/berlin.mbtiles'),
+                    maxZoom: 18.0,
+                    backgroundColor: Colors.white,
+                    tms: true,
+                  ),
                 ],
               ),
             ),
